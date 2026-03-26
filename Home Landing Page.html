@@ -6,9 +6,41 @@
 <title>NEXUS — Live Intelligence Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* FreeType-Compatible Fonts - Victor Mono (Open Source, FreeType Ready) */
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('https://cdn.jsdelivr.net/npm/victormono@latest/dist/VictorMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('https://cdn.jsdelivr.net/npm/victormono@latest/dist/VictorMono-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('https://cdn.jsdelivr.net/npm/victormono@latest/dist/VictorMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('https://cdn.jsdelivr.net/npm/victormono@latest/dist/VictorMono-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Fallback fonts that work with FreeType */
 :root{
   --bg:#070b0f;--sf:#0c1016;--sf2:#111820;--sf3:#161f28;
   --bo:rgba(0,210,160,0.1);--bo2:rgba(0,210,160,0.22);
@@ -17,7 +49,8 @@
   --re:#ff4560;--redim:rgba(255,69,96,0.12);
   --am:#f5a623;--amdim:rgba(245,166,35,0.12);
   --tx:#dde4ec;--mu:#4a6070;--mu2:#2a3a48;
-  --fh:'Syne',sans-serif;--fm:'JetBrains Mono',monospace
+  --fh:'Victor Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  --fm:'Victor Mono', 'JetBrains Mono', 'Fira Code', monospace;
 }
 html,body{height:100%;overflow:hidden;background:var(--bg)}
 #app{display:grid;grid-template-rows:52px 1fr;height:100vh;font-family:var(--fm);font-size:12px;color:var(--tx)}
@@ -1002,7 +1035,7 @@ createApp({
     function buildChart(id,labels,data,color,bg,h,type,unit){
       const ctx=document.getElementById(id);if(!ctx) return;
       if(charts[id]){charts[id].destroy();charts[id]=null;}
-      charts[id]=new Chart(ctx,{type,data:{labels,datasets:[{data,borderColor:color,backgroundColor:bg,borderWidth:1.5,pointRadius:0,fill:true,tension:0.4,borderRadius:type==='bar'?2:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,bodyFont:{family:'JetBrains Mono',size:10},callbacks:{label:c=>c.parsed.y+unit}}},scales:{x:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4a6070',font:{family:'JetBrains Mono',size:8},maxTicksLimit:6}},y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4a6070',font:{family:'JetBrains Mono',size:8}}}}}});
+      charts[id]=new Chart(ctx,{type,data:{labels,datasets:[{data,borderColor:color,backgroundColor:bg,borderWidth:1.5,pointRadius:0,fill:true,tension:0.4,borderRadius:type==='bar'?2:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,bodyFont:{family:'Victor Mono',size:10},callbacks:{label:c=>c.parsed.y+unit}}},scales:{x:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4a6070',font:{family:'Victor Mono',size:8},maxTicksLimit:6}},y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4a6070',font:{family:'Victor Mono',size:8}}}}}});
     }
 
     // ── GITHUB ──
@@ -1038,7 +1071,7 @@ createApp({
       gh.events.forEach(e=>{const k=e.type.replace('Event','');counts[k]=(counts[k]||0)+1;});
       const keys=Object.keys(counts),vals=Object.values(counts);
       const cols=['#00d4a0','#00aaff','#f5a623','#ff4560','#a78bfa','#34d399','#fb923c','#60a5fa'];
-      charts.gh=new Chart(ctx,{type:'doughnut',data:{labels:keys,datasets:[{data:vals,backgroundColor:cols.slice(0,keys.length),borderColor:'#0c1016',borderWidth:3}]},options:{responsive:true,cutout:'65%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#4a6070',font:{family:'JetBrains Mono',size:9},padding:8,boxWidth:10}},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,bodyFont:{family:'JetBrains Mono',size:11}}}}});
+      charts.gh=new Chart(ctx,{type:'doughnut',data:{labels:keys,datasets:[{data:vals,backgroundColor:cols.slice(0,keys.length),borderColor:'#0c1016',borderWidth:3}]},options:{responsive:true,cutout:'65%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#4a6070',font:{family:'Victor Mono',size:9},padding:8,boxWidth:10}},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,bodyFont:{family:'Victor Mono',size:11}}}}});
     }
 
     // ── CRYPTO ──
@@ -1079,7 +1112,7 @@ createApp({
             const vals=prices.map(p=>p[1]);
             const up=vals[vals.length-1]>=vals[0];
             const col=up?'#00d4a0':'#ff4560';
-            charts.price=new Chart(ctx,{type:'line',data:{labels,datasets:[{data:vals,borderColor:col,backgroundColor:up?'rgba(0,212,160,0.07)':'rgba(255,69,96,0.07)',borderWidth:1.5,pointRadius:2,fill:true,tension:0.3,pointBackgroundColor:col}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,titleFont:{family:'JetBrains Mono',size:10},bodyFont:{family:'JetBrains Mono',size:11},callbacks:{label:c=>'$'+c.parsed.y.toLocaleString(undefined,{maximumFractionDigits:2})}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6070',font:{family:'JetBrains Mono',size:9},maxTicksLimit:10}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6070',font:{family:'JetBrains Mono',size:9},callback:v=>'$'+(v>=1000?(v/1000).toFixed(0)+'k':v.toFixed(2))}}}}});
+            charts.price=new Chart(ctx,{type:'line',data:{labels,datasets:[{data:vals,borderColor:col,backgroundColor:up?'rgba(0,212,160,0.07)':'rgba(255,69,96,0.07)',borderWidth:1.5,pointRadius:2,fill:true,tension:0.3,pointBackgroundColor:col}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,titleFont:{family:'Victor Mono',size:10},bodyFont:{family:'Victor Mono',size:11},callbacks:{label:c=>'$'+c.parsed.y.toLocaleString(undefined,{maximumFractionDigits:2})}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6070',font:{family:'Victor Mono',size:9},maxTicksLimit:10}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a6070',font:{family:'Victor Mono',size:9},callback:v=>'$'+(v>=1000?(v/1000).toFixed(0)+'k':v.toFixed(2))}}}}});
           }
         }
       }catch(e){ console.warn('CoinGecko rate limited'); }
@@ -1090,7 +1123,7 @@ createApp({
       nextTick(()=>{
         const ctx=document.getElementById('donut-chart');if(!ctx) return;
         if(charts.donut){charts.donut.destroy();charts.donut=null;}
-        charts.donut=new Chart(ctx,{type:'doughnut',data:{labels:['Bitcoin','Ethereum','Solana','Cardano','Other'],datasets:[{data:[52,18,8,4,18],backgroundColor:['#00d4a0','#00aaff','#f5a623','#ff4560','#4a6070'],borderColor:'#0c1016',borderWidth:3}]},options:{responsive:true,cutout:'65%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#4a6070',font:{family:'JetBrains Mono',size:9},padding:8,boxWidth:10}},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,bodyFont:{family:'JetBrains Mono',size:11}}}}});
+        charts.donut=new Chart(ctx,{type:'doughnut',data:{labels:['Bitcoin','Ethereum','Solana','Cardano','Other'],datasets:[{data:[52,18,8,4,18],backgroundColor:['#00d4a0','#00aaff','#f5a623','#ff4560','#4a6070'],borderColor:'#0c1016',borderWidth:3}]},options:{responsive:true,cutout:'65%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#4a6070',font:{family:'Victor Mono',size:9},padding:8,boxWidth:10}},tooltip:{backgroundColor:'#0c1016',borderColor:'rgba(0,212,160,0.2)',borderWidth:1,bodyFont:{family:'Victor Mono',size:11}}}}});
       });
     }
 
